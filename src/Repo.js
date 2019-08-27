@@ -3,6 +3,7 @@ import './App.css';
 import {actions} from './actions';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
+import {name, image, git_url} from './Dashboard';
 
 const Reponame = styled.section`
     color: white;
@@ -21,6 +22,9 @@ class RepoComponent extends React.Component {
     render() {
         return (
         <div>
+            {name()}
+            {image()}
+            {git_url()}
             {this.loadmore_repo()}
         </div>
         )
@@ -72,7 +76,7 @@ class RepoComponent extends React.Component {
                         {this.state.items.slice(0, this.state.visible).map((item, index) => {
                             return (
                                 <div>
-                                <Reponame>{index+1}{item.name}</Reponame>
+                                <Reponame>{index+1}   {item.name}</Reponame>
                                 <Repodes>{item.description}</Repodes>
                                 <hr></hr>
                                 </div>
