@@ -6,6 +6,7 @@ const baseUrl = 'https://api.github.com/users';
 function* loadUserData(action) {
     const user = yield axios.get(`${baseUrl}/${action.name}`);
     const repo = yield axios.get(`${baseUrl}/${action.name}/repos`);
+    console.log(repo);
     var data = Object.assign([], user.data, repo.data);
     yield put(actions.loadUserDataSuccess(data))
 }

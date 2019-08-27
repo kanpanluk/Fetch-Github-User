@@ -3,30 +3,48 @@ import './App.css';
 import {actions} from './actions';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import {name, image, git_url} from './Dashboard';
+import { Mainsection, Dashboard } from './Dashboard';
+import { Link } from 'react-router-dom'
 
 const Reponame = styled.section`
     color: white;
     font-size: 30px;
-    text-align:left;
+    text-align:center;
+    
 `;
 
 const Repodes = styled.section`
     color: grey;
     font-size: 20px;
     text-align:left;
+    margin-left: 20%;
+    margin-right: 20%;
+    hr { 
+        display: block;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        margin-left: auto;
+        margin-right: auto;
+        border-style: inset;
+        border-width: 1px;
+      } 
 `;
 
 class RepoComponent extends React.Component {
     
     render() {
         return (
-        <div>
-            {name()}
-            {image()}
-            {git_url()}
+        <Mainsection>
+            <div>
+                {this.props.user.user.name}
+            </div>
+            <img class="img-fluid" alt="..." src={this.props.user.user.avatar_url} />
+            <div>
+                <a href={this.props.user.user.html_url}> {this.props.user.user.html_url} </a>
+            </div>
+            
             {this.loadmore_repo()}
-        </div>
+        </Mainsection>
         )
     }
 
@@ -63,8 +81,8 @@ class RepoComponent extends React.Component {
                             </Reponame>
                             <Repodes>
                                 {repo.description}
+                                <hr></hr>
                             </Repodes>
-                            <hr></hr>
                         </div>
                 ))
     }
@@ -76,15 +94,21 @@ class RepoComponent extends React.Component {
                         {this.state.items.slice(0, this.state.visible).map((item, index) => {
                             return (
                                 <div>
-                                <Reponame>{index+1}   {item.name}</Reponame>
-                                <Repodes>{item.description}</Repodes>
-                                <hr></hr>
+                                <Reponame>{item.name}</Reponame>
+                                <Repodes>
+                                    {item.description}
+                                    <hr></hr>
+                                </Repodes>
                                 </div>
                             );
                         })}
                 {this.state.visible < this.state.items.length &&
                     <button onClick={this.loadMore} type="button" className="load-more">Load more</button>
                 }
+
+                {this.state.visible >= this.state.items.length &&
+                     <button><Link to='/' style={{ textDecoration: 'none' }}>BACK</Link></button>
+                }   
                 </section>)
     }
 }

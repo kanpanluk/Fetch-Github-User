@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 
-const Mainsection = styled.section`
+export const Mainsection = styled.section`
 img {
     width: 100px;
     height: auto;
@@ -104,7 +104,8 @@ class DashboardComponent extends React.Component {
                             to={{
                             pathname: "/repo",
                             data: this.props
-                            }}
+                            }} 
+                            style={{ textDecoration: 'none' }}
                         >
                             {this.name()}
                         </Link>
@@ -151,4 +152,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export const Dashboard = connect(mapStateToProps, mapDispatchToProps)(DashboardComponent);
-
