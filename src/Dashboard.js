@@ -6,40 +6,56 @@ import {actions} from './actions';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
+import { Rabbit as Button } from 'react-button-loaders'
 
 export const Mainsection = styled.section`
-img {
-    width: 100px;
-    height: auto;
-  }
-  @media (min-width: 768px) {
     img {
-        width: 150px;
+        width: 100px;
+        height: auto;
     }
-  }
-  @media (min-width: 992px) {
-    img {
-        width: 200px;
+    @media (min-width: 768px) {
+        img {
+            width: 150px;
+        }
     }
-  }
-  @media (min-width: 1200px) {
-    img {
-        width: 250px;
+    @media (min-width: 992px) {
+        img {
+            width: 200px;
+        }
     }
-  }
-  a:visited {
-    color: whitesmoke;
-  }
-  a:hover {
-    color: grey;
-  }
-  a:active {
-    color: black;
-  }
-  
+    @media (min-width: 1200px) {
+        img {
+            width: 250px;
+        }
+    }
+    a:visited {
+        color: grey;
+    }
+    a:hover {
+        color: black;
+    }
+    a:active {
+        color: whitesmoke;
+    }
+    Button {
+        margin : auto;
+    }
 `;
 
 class DashboardComponent extends React.Component {
+
+    state = {
+        sendState: '' 
+    }
+      
+    handleClick = () => {
+        this.setState({sendState: 'loading'})
+        //simulating an API
+        setTimeout(() => {
+            this.setState({sendState: 'default'})
+        }, 300)
+        
+    }
 
     render() {
         return (
@@ -79,7 +95,7 @@ class DashboardComponent extends React.Component {
                                     className={errors.name && touched.name ? 'error' : ''}
                                 />
                                 {errors.name && errors.touched && <div className="input-feedback">{errors.name}</div>}
-                                <button type="submit" disabled={isSubmitting}>
+                                <button onClick={this.handleClick} state={this.state.sendState}  speedProgress="300" bgColor="#227cd2" type="submit" disabled={isSubmitting}>
                                     Search
                                 </button>
                                 <button
@@ -90,7 +106,6 @@ class DashboardComponent extends React.Component {
                                 >
                                     Reset
                                 </button>
-                                
                             </form>
                         );
                     }}

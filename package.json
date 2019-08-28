@@ -4,10 +4,16 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.1",
+    "bootstrap": "^4.3.1",
     "formik": "^1.5.8",
-    "react": "^16.6.3",
+    "npm-install-peers": "^1.2.1",
+    "react": "^16.9.0",
+    "react-bootstrap": "^1.0.0-beta.12",
+    "react-bootstrap-button-loader": "^2.0.0",
+    "react-button-loaders": "0.0.1",
     "react-dom": "^16.6.3",
     "react-loadmore-list": "^0.1.2",
+    "react-progress-2": "^4.4.3",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "2.1.1",
@@ -31,5 +37,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^2.0.1"
+  }
 }

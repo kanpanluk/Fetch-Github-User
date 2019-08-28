@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, run:
 
-### `npm install axios formik react-redux redux redux-saga yup`
+### `npm install `
 
 then, run:
 

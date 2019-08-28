@@ -3,8 +3,9 @@ import './App.css';
 import {actions} from './actions';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import { Mainsection, Dashboard } from './Dashboard';
+import { Mainsection } from './Dashboard';
 import { Link } from 'react-router-dom'
+import { Rabbit as Button } from 'react-button-loaders'
 
 const Reponame = styled.section`
     color: white;
@@ -28,10 +29,24 @@ const Repodes = styled.section`
         border-style: inset;
         border-width: 1px;
       } 
+    
 `;
 
 class RepoComponent extends React.Component {
-    
+    state = {
+        sendState: '' 
+    }
+      
+    handleClick = () => {
+        this.setState({sendState: 'loading'})
+        //simulating an API
+        setTimeout(() => {
+            this.setState({sendState: 'default'})
+            this.loadMore()
+        }, 300)
+        
+    }
+      
     render() {
         return (
         <Mainsection>
@@ -103,11 +118,11 @@ class RepoComponent extends React.Component {
                             );
                         })}
                 {this.state.visible < this.state.items.length &&
-                    <button onClick={this.loadMore} type="button" className="load-more">Load more</button>
+                    <Button onClick={this.handleClick} state={this.state.sendState}  speedProgress="300" bgColor="#227cd2" type="button" className="load-more">Load more</Button>
                 }
 
                 {this.state.visible >= this.state.items.length &&
-                     <button><Link to='/' style={{ textDecoration: 'none' }}>BACK</Link></button>
+                     <button className="outline"><Link to='/' style={{ textDecoration: 'none' }}>BACK</Link></button>
                 }   
                 </section>)
     }
