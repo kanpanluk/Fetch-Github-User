@@ -6,7 +6,7 @@ import {actions} from './actions';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
-import { Rabbit as Button } from 'react-button-loaders'
+import { Button , Form , Label , Input } from 'reactstrap';
 
 export const Mainsection = styled.section`
     img {
@@ -29,13 +29,13 @@ export const Mainsection = styled.section`
         }
     }
     a:visited {
-        color: grey;
+        color: white;
     }
     a:hover {
-        color: black;
+        color: grey;
     }
     a:active {
-        color: whitesmoke;
+        color: black;
     }
     Button {
         margin : auto;
@@ -83,9 +83,9 @@ class DashboardComponent extends React.Component {
                             handleReset
                         } = props;
                         return (
-                            <form onSubmit={handleSubmit}>
-                                <label htmlFor="name"><b>GitHub</b></label>
-                                <input
+                            <Form onSubmit={handleSubmit}>
+                                <Label htmlFor="name"><b>GitHub</b></Label>
+                                <Input
                                     id="name"
                                     placeholder="Enter your username"
                                     type="text"
@@ -95,21 +95,22 @@ class DashboardComponent extends React.Component {
                                     className={errors.name && touched.name ? 'error' : ''}
                                 />
                                 {errors.name && errors.touched && <div className="input-feedback">{errors.name}</div>}
-                                <button onClick={this.handleClick} state={this.state.sendState}  speedProgress="300" bgColor="#227cd2" type="submit" disabled={isSubmitting}>
+                                <Button color="primary" type="submit" disabled={isSubmitting}>
                                     Search
-                                </button>
-                                <button
+                                </Button>
+                                <Button color="secondary"
                                     type="button"
                                     className="outline"
                                     onClick={handleReset}
                                     disabled={!dirty || isSubmitting}
                                 >
                                     Reset
-                                </button>
-                            </form>
+                                </Button>
+                            </Form>
                         );
                     }}
                 </Formik>
+                <div>
                 <Mainsection className="output">
                     <div>
                         {/* {JSON.stringify(this.props.user.user, null, 2)} */}
@@ -130,6 +131,7 @@ class DashboardComponent extends React.Component {
                     </div>
                     <a href={this.git_url()}>{this.git_url()}</a>
                 </Mainsection>
+                </div>
             </div>
         );
     }

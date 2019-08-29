@@ -10,6 +10,8 @@ import {watchLoadUserData} from './sagas';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import App from './App';
 import {Repo} from './Repo';
+import CarouselSlide from './CarouselSlide';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -26,6 +28,7 @@ const routing = (
                 <header className="App-header">
                     <Route exact path="/" component={App} />
                     <Route exact path="/Repo" component={Repo} />
+                    <Route exact path="/Carousel" component={CarouselSlide} />
                 </header>
             </div>
         </Router>

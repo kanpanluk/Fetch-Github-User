@@ -5,21 +5,20 @@ import {connect} from 'react-redux';
 import styled from 'styled-components';
 import { Mainsection } from './Dashboard';
 import { Link } from 'react-router-dom'
-import { Rabbit as Button } from 'react-button-loaders'
+import { Rabbit } from 'react-button-loaders'
+import { Button, Card, CardHeader, CardBody, CardText } from 'reactstrap';
 
 const Reponame = styled.section`
-    color: white;
-    font-size: 30px;
+    color: grey;
+    font-size: 20px;
     text-align:center;
     
 `;
 
 const Repodes = styled.section`
     color: grey;
-    font-size: 20px;
+    font-size: 15px;
     text-align:left;
-    margin-left: 20%;
-    margin-right: 20%;
     hr { 
         display: block;
         margin-top: 0.5em;
@@ -108,21 +107,34 @@ class RepoComponent extends React.Component {
                     <h1>Repositories</h1>
                         {this.state.items.slice(0, this.state.visible).map((item, index) => {
                             return (
-                                <div>
-                                <Reponame>{item.name}</Reponame>
-                                <Repodes>
-                                    {item.description}
+                                <div class= "row">
+                                    <div class = "col-sm"></div>
+                                    <div class = "col-sm">
+                                        <Card>
+                                            <CardHeader><Reponame>{item.name}</Reponame></CardHeader>
+                                            <CardBody>
+                                            <CardText><Repodes>
+                                                {item.description}
+                                            </Repodes></CardText>
+                                            </CardBody>
+                                        </Card>
+                                    {/* <Reponame>{item.name}</Reponame>
+                                    <Repodes>
+                                        {item.description}
+                                        <hr></hr>
+                                    </Repodes> */}
                                     <hr></hr>
-                                </Repodes>
+                                    </div>
+                                    <div class = "col-sm"></div>
                                 </div>
                             );
                         })}
                 {this.state.visible < this.state.items.length &&
-                    <Button onClick={this.handleClick} state={this.state.sendState}  speedProgress="300" bgColor="#227cd2" type="button" className="load-more">Load more</Button>
+                    <Rabbit onClick={this.handleClick} state={this.state.sendState}  speedProgress="300" bgColor="#227cd2" type="button" className="load-more">Load more</Rabbit>
                 }
 
                 {this.state.visible >= this.state.items.length &&
-                     <button className="outline"><Link to='/' style={{ textDecoration: 'none' }}>BACK</Link></button>
+                     <Button color="secondary"><Link to='/' style={{ textDecoration: 'none' }}>BACK</Link></Button>
                 }   
                 </section>)
     }
