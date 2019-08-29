@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { Container , Form , Label , Input , Row , Col} from 'reactstrap';
 import { CarouselSlide } from './CarouselSlide';
 import { Lion as Button} from 'react-button-loaders'
+import SpinnerComponent from './Spinner';
 
 export const Mainsection = styled.section`
     img {
@@ -46,10 +47,23 @@ export const Mainsection = styled.section`
 class DashboardComponent extends React.Component {
     
     state = {
-        sendState: '' 
+        sendState: '',
+        loading: true
+    }
+
+    sleep = (milliseconds) => {
+        return new Promise((resolve) => setTimeout(resolve, milliseconds));
+    }
+
+    wait = async (milliseconds = 2000) => {
+        await this.sleep(milliseconds);
+        this.setState({
+            loading: false
+          });
     }
 
     render() {
+        if (this.state.loading) return <SpinnerComponent />
         return (
             <Container>
                 <Row>
@@ -158,6 +172,10 @@ class DashboardComponent extends React.Component {
             this.setState({sendState: 'default'})
         }, 300)
         
+    }
+
+    componentDidMount() {
+        this.wait(800);
     }
 }
 

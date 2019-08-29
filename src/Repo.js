@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { Rabbit } from 'react-button-loaders'
 import { Container , Row, Col, Button, Card, CardHeader, CardBody, CardText } from 'reactstrap';
 import axios from 'axios';
+import SpinnerComponent from './Spinner';
 
 const Reponame = styled.section`
     color: grey;
@@ -39,10 +40,22 @@ class RepoComponent extends React.Component {
             items: [],
             visible: 2,
             error: false,
-            sendState: '' 
+            sendState: '',
+            loading: true
         };
     
         this.loadMore = this.loadMore.bind(this);
+    }
+
+    sleep = (milliseconds) => {
+        return new Promise((resolve) => setTimeout(resolve, milliseconds));
+    }
+
+    wait = async (milliseconds = 2000) => {
+        await this.sleep(milliseconds);
+        this.setState({
+            loading: false
+          });
     }
       
     handleClick = () => {
@@ -56,6 +69,7 @@ class RepoComponent extends React.Component {
     }
       
     render() {
+        if (this.state.loading) return <SpinnerComponent />
         return (
         <Container><Mainsection>
             <div>
@@ -130,6 +144,7 @@ class RepoComponent extends React.Component {
             console.log(error);
         });
         
+        this.wait(800);
     }
 }
 
