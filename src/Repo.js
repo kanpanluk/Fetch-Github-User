@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Mainsection } from './Dashboard';
 import { Link } from 'react-router-dom'
 import { Rabbit } from 'react-button-loaders'
-import { Row, Col, Button, Card, CardHeader, CardBody, CardText } from 'reactstrap';
+import { Container , Row, Col, Button, Card, CardHeader, CardBody, CardText } from 'reactstrap';
 import axios from 'axios';
 
 const Reponame = styled.section`
@@ -17,7 +17,7 @@ const Reponame = styled.section`
 const Repodes = styled.section`
     color: grey;
     font-size: 15px;
-    text-align:left;
+    text-align:center;
     hr { 
         display: block;
         margin-top: 0.5em;
@@ -57,7 +57,7 @@ class RepoComponent extends React.Component {
       
     render() {
         return (
-        <Mainsection>
+        <Container><Mainsection>
             <div>
                 {this.state.user.name}
                 {/* {JSON.stringify(this.state.items[0], null, 2)} */}
@@ -68,7 +68,7 @@ class RepoComponent extends React.Component {
             </div>
             
             {this.loadmore_repo()}
-        </Mainsection>
+        </Mainsection></Container>
         )
     }
 
@@ -87,7 +87,7 @@ class RepoComponent extends React.Component {
                         {this.state.items.slice(0, this.state.visible).map((item, index) => {
                             return (
                                 <Row>
-                                    <Col>
+                                    <Col sm="12" md={{ size: 6, offset: 3 }}>
                                         <Card>
                                             <CardHeader><Reponame>{item.name}</Reponame></CardHeader>
                                             <CardBody>
@@ -132,19 +132,5 @@ class RepoComponent extends React.Component {
         
     }
 }
-
-// const mapStateToProps = (state) => {
-//     return {
-//         user: state.user
-//     };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         loadUserData: name => dispatch(actions.loadUserData(name))
-//     };
-// };
-
-// export const Repo = connect(mapStateToProps, mapDispatchToProps)(RepoComponent);
 
 export default RepoComponent;

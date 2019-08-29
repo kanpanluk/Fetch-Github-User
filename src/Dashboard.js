@@ -5,9 +5,9 @@ import * as Yup from 'yup';
 import {actions} from './actions';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
-import { Container , Button , Form , Label , Input , Row , Col} from 'reactstrap';
+import { Container , Form , Label , Input , Row , Col} from 'reactstrap';
 import { CarouselSlide } from './CarouselSlide';
-import { Lion as ButtonLoading} from 'react-button-loaders'
+import { Lion as Button} from 'react-button-loaders'
 
 export const Mainsection = styled.section`
     img {
@@ -93,7 +93,7 @@ class DashboardComponent extends React.Component {
                                 <Row>
                                     <Col>
                                         {errors.name && errors.touched && <div className="input-feedback">{errors.name}</div>}
-                                        <ButtonLoading
+                                        <Button
                                             onClick={this.handleClick} 
                                             state={this.state.sendState} 
                                             bgColor="#4AD481" 
@@ -102,17 +102,17 @@ class DashboardComponent extends React.Component {
                                             type="submit" 
                                             disabled={isSubmitting}>
                                             Search
-                                        </ButtonLoading>
+                                        </Button>
                                     </Col>
                                     <Col>
-                                        <ButtonLoading 
+                                        <Button 
                                             type="button"
                                             className="outline"
                                             onClick={handleReset}
                                             disabled={!dirty || isSubmitting}
                                         >
                                             Reset
-                                        </ButtonLoading>
+                                        </Button>
                                     </Col>
                                 </Row>
                             </Form>
@@ -127,24 +127,8 @@ class DashboardComponent extends React.Component {
                 <Col xs="6" sm="4">
                 <Mainsection className="output">
                     <div>
-                        {/* {JSON.stringify(this.props.user.user, null, 2)} */}
-                        {/* {this.repos()} */}
                         {this.list_users()}
-                            
-                        {/* <Link
-                            to={{
-                            pathname: "/repo",
-                            data: this.props
-                            }} 
-                            style={{ textDecoration: 'none' }}
-                        >
-                            {this.name()}
-                        </Link> */}
                     </div>
-                    <div>
-                        {/* {this.image()} */}
-                    </div>
-                    {/* <a href={this.git_url()}>{this.git_url()}</a> */}
                 </Mainsection>
                 </Col>
                 </Row>
