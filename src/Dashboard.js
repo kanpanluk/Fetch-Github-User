@@ -6,7 +6,8 @@ import {actions} from './actions';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
-import { Button , Form , Label , Input } from 'reactstrap';
+import { Container , Button , Form , Label , Input , Row , Col} from 'reactstrap';
+import { CarouselSlide } from './CarouselSlide';
 
 export const Mainsection = styled.section`
     img {
@@ -42,8 +43,10 @@ export const Mainsection = styled.section`
     }
 `;
 
-class DashboardComponent extends React.Component {
+var items = []
 
+class DashboardComponent extends React.Component {
+    
     state = {
         sendState: '' 
     }
@@ -59,7 +62,10 @@ class DashboardComponent extends React.Component {
 
     render() {
         return (
-            <div>
+            <Container>
+                <Row>
+                <Col xs="6" sm="4"></Col>
+                <Col xs="6" sm="4">
                 <Formik
                     initialValues={{name: ''}}
                     onSubmit={(values, {setSubmitting}) => {
@@ -110,13 +116,19 @@ class DashboardComponent extends React.Component {
                         );
                     }}
                 </Formik>
-                <div>
+                </Col>
+                </Row>
+                <hr></hr>
+                <Row>
+                <Col xs="6" sm="4"></Col>
+                <Col xs="6" sm="4">
                 <Mainsection className="output">
                     <div>
                         {/* {JSON.stringify(this.props.user.user, null, 2)} */}
                         {/* {this.repos()} */}
-                        
-                        <Link
+                        {this.list_users()}
+                            
+                        {/* <Link
                             to={{
                             pathname: "/repo",
                             data: this.props
@@ -124,16 +136,31 @@ class DashboardComponent extends React.Component {
                             style={{ textDecoration: 'none' }}
                         >
                             {this.name()}
-                        </Link>
+                        </Link> */}
                     </div>
                     <div>
-                        {this.image()}
+                        {/* {this.image()} */}
                     </div>
-                    <a href={this.git_url()}>{this.git_url()}</a>
+                    {/* <a href={this.git_url()}>{this.git_url()}</a> */}
                 </Mainsection>
-                </div>
-            </div>
+                </Col>
+                </Row>
+            </Container>
         );
+    }
+
+    list_users(){
+        if (this.props.user.user) {
+            for (var i=0;i<this.props.user.user.items.length;i++){
+                items.push({
+                    src: this.props.user.user.items[i].avatar_url,
+                    altText: this.props.user.user.items[i].html_url,
+                    caption: this.props.user.user.items[i].login
+                })
+            }
+
+            return (<Row><CarouselSlide items={items} /></Row>)
+        }
     }
 
     name() {
