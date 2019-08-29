@@ -19,6 +19,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "2.1.1",
     "reactstrap": "^8.0.1",
+    "reactstrap-button-loader": "^1.0.15",
     "redux": "^4.0.4",
     "redux-saga": "^0.16.2",
     "semantic-ui-react": "^0.88.0",

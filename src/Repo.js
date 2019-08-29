@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import {actions} from './actions';
-import {connect} from 'react-redux';
 import styled from 'styled-components';
 import { Mainsection } from './Dashboard';
 import { Link } from 'react-router-dom'
 import { Rabbit } from 'react-button-loaders'
-import { Button, Card, CardHeader, CardBody, CardText } from 'reactstrap';
+import { Row, Col, Button, Card, CardHeader, CardBody, CardText } from 'reactstrap';
+import axios from 'axios';
 
 const Reponame = styled.section`
     color: grey;
@@ -27,13 +26,23 @@ const Repodes = styled.section`
         margin-right: auto;
         border-style: inset;
         border-width: 1px;
-      } 
-    
+    } 
 `;
 
 class RepoComponent extends React.Component {
-    state = {
-        sendState: '' 
+
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+            user: {},
+            items: [],
+            visible: 2,
+            error: false,
+            sendState: '' 
+        };
+    
+        this.loadMore = this.loadMore.bind(this);
     }
       
     handleClick = () => {
@@ -50,11 +59,12 @@ class RepoComponent extends React.Component {
         return (
         <Mainsection>
             <div>
-                {this.props.user.user.name}
+                {this.state.user.name}
+                {/* {JSON.stringify(this.state.items[0], null, 2)} */}
             </div>
-            <img class="img-fluid" alt="..." src={this.props.user.user.avatar_url} />
+            <img class="img-fluid" alt="..." src={this.state.user.avatar_url} />
             <div>
-                <a href={this.props.user.user.html_url}> {this.props.user.user.html_url} </a>
+                <a href={this.state.user.html_url}> {this.state.user.html_url} </a>
             </div>
             
             {this.loadmore_repo()}
@@ -62,43 +72,12 @@ class RepoComponent extends React.Component {
         )
     }
 
-    constructor(props) {
-        super(props);
     
-        this.state = {
-          items: this.props.user.user,
-          visible: 2,
-          error: false
-        };
-    
-        this.loadMore = this.loadMore.bind(this);
-    }
 
     loadMore() {
         this.setState((prev) => {
           return {visible: prev.visible + 4};
         });
-    }
-
-    test(){
-        // alert(this.props.user.user.length);
-        return this.props.user.user.length;
-
-    }
-
-    list_repo(){
-
-        return this.state.items.map(repo => (
-                        <div>
-                            <Reponame>
-                                {repo.name}
-                            </Reponame>
-                            <Repodes>
-                                {repo.description}
-                                <hr></hr>
-                            </Repodes>
-                        </div>
-                ))
     }
 
     loadmore_repo(){
@@ -107,9 +86,8 @@ class RepoComponent extends React.Component {
                     <h1>Repositories</h1>
                         {this.state.items.slice(0, this.state.visible).map((item, index) => {
                             return (
-                                <div class= "row">
-                                    <div class = "col-sm"></div>
-                                    <div class = "col-sm">
+                                <Row>
+                                    <Col>
                                         <Card>
                                             <CardHeader><Reponame>{item.name}</Reponame></CardHeader>
                                             <CardBody>
@@ -118,15 +96,9 @@ class RepoComponent extends React.Component {
                                             </Repodes></CardText>
                                             </CardBody>
                                         </Card>
-                                    {/* <Reponame>{item.name}</Reponame>
-                                    <Repodes>
-                                        {item.description}
-                                        <hr></hr>
-                                    </Repodes> */}
                                     <hr></hr>
-                                    </div>
-                                    <div class = "col-sm"></div>
-                                </div>
+                                    </Col>
+                                </Row>
                             );
                         })}
                 {this.state.visible < this.state.items.length &&
@@ -134,23 +106,45 @@ class RepoComponent extends React.Component {
                 }
 
                 {this.state.visible >= this.state.items.length &&
-                     <Button color="secondary"><Link to='/' style={{ textDecoration: 'none' }}>BACK</Link></Button>
+                     <Link to='/' style={{ textDecoration: 'none' }}><Button color="secondary">BACK</Button></Link>
                 }   
                 </section>)
     }
+
+    componentDidMount() {
+        const baseUrl = 'https://api.github.com/users';
+
+        axios.get(`${baseUrl}/${this.props.history.location.data}`)
+        .then(user => {
+            axios.get(`${baseUrl}/${this.props.history.location.data}/repos`)
+            .then(repo => {
+                // var data = Object.assign([], user.data, repo.data);
+                this.setState({ items: repo.data });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+            this.setState({ user: user.data });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+        
+    }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.user
-    };
-};
+// const mapStateToProps = (state) => {
+//     return {
+//         user: state.user
+//     };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        loadUserData: name => dispatch(actions.loadUserData(name))
-    };
-};
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         loadUserData: name => dispatch(actions.loadUserData(name))
+//     };
+// };
 
-export const Repo = connect(mapStateToProps, mapDispatchToProps)(RepoComponent);
+// export const Repo = connect(mapStateToProps, mapDispatchToProps)(RepoComponent);
 
+export default RepoComponent;

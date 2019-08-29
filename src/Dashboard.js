@@ -4,14 +4,14 @@ import './dashboard.css';
 import * as Yup from 'yup';
 import {actions} from './actions';
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 import { Container , Button , Form , Label , Input , Row , Col} from 'reactstrap';
 import { CarouselSlide } from './CarouselSlide';
+import { Lion as ButtonLoading} from 'react-button-loaders'
 
 export const Mainsection = styled.section`
     img {
-        width: 100px;
+        width: 200px;
         height: auto;
     }
     @media (min-width: 768px) {
@@ -43,21 +43,10 @@ export const Mainsection = styled.section`
     }
 `;
 
-var items = []
-
 class DashboardComponent extends React.Component {
     
     state = {
         sendState: '' 
-    }
-      
-    handleClick = () => {
-        this.setState({sendState: 'loading'})
-        //simulating an API
-        setTimeout(() => {
-            this.setState({sendState: 'default'})
-        }, 300)
-        
     }
 
     render() {
@@ -100,18 +89,32 @@ class DashboardComponent extends React.Component {
                                     onBlur={handleBlur}
                                     className={errors.name && touched.name ? 'error' : ''}
                                 />
-                                {errors.name && errors.touched && <div className="input-feedback">{errors.name}</div>}
-                                <Button color="primary" type="submit" disabled={isSubmitting}>
-                                    Search
-                                </Button>
-                                <Button color="secondary"
-                                    type="button"
-                                    className="outline"
-                                    onClick={handleReset}
-                                    disabled={!dirty || isSubmitting}
-                                >
-                                    Reset
-                                </Button>
+                                <hr></hr>
+                                <Row>
+                                    <Col>
+                                        {errors.name && errors.touched && <div className="input-feedback">{errors.name}</div>}
+                                        <ButtonLoading
+                                            onClick={this.handleClick} 
+                                            state={this.state.sendState} 
+                                            bgColor="#4AD481" 
+                                            bgLoading="#4AD481" 
+                                            speedProgress="300" 
+                                            type="submit" 
+                                            disabled={isSubmitting}>
+                                            Search
+                                        </ButtonLoading>
+                                    </Col>
+                                    <Col>
+                                        <ButtonLoading 
+                                            type="button"
+                                            className="outline"
+                                            onClick={handleReset}
+                                            disabled={!dirty || isSubmitting}
+                                        >
+                                            Reset
+                                        </ButtonLoading>
+                                    </Col>
+                                </Row>
                             </Form>
                         );
                     }}
@@ -151,6 +154,7 @@ class DashboardComponent extends React.Component {
 
     list_users(){
         if (this.props.user.user) {
+            var items = []
             for (var i=0;i<this.props.user.user.items.length;i++){
                 items.push({
                     src: this.props.user.user.items[i].avatar_url,
@@ -163,24 +167,14 @@ class DashboardComponent extends React.Component {
         }
     }
 
-    name() {
-        if (this.props.user.user) {
-            return this.props.user.user.name
-        } 
+    handleClick = () => {
+        this.setState({sendState: 'loading'})
+        //simulating an API
+        setTimeout(() => {
+            this.setState({sendState: 'default'})
+        }, 300)
+        
     }
-
-    image(){
-        if (this.props.user.user) {
-            return (<img class="img-fluid" alt="..." src={this.props.user.user.avatar_url} />)
-        }
-    }
-
-    git_url(){
-        if (this.props.user.user) {
-            return this.props.user.user.html_url
-        }
-    }
-
 }
 
 const mapStateToProps = (state) => {

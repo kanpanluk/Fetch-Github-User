@@ -9,7 +9,7 @@ import {Provider} from 'react-redux';
 import {watchLoadUserData} from './sagas';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import App from './App';
-import {Repo} from './Repo';
+import RepoComponent from './Repo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 const sagaMiddleware = createSagaMiddleware();
 
@@ -25,7 +25,7 @@ const routing = (
             <div className="App">
                 <header className="App-header">
                     <Route exact path="/" component={App} />
-                    <Route exact path="/Repo" component={Repo} />
+                    <Route exact path="/Repo" component={RepoComponent} />
                 </header>
             </div>
         </Router>
