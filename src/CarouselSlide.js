@@ -54,7 +54,7 @@ export class CarouselSlide extends Component {
           onExited={this.onExited}
           key={item.src}
         >
-          <img src={item.src} />
+          <img src={item.src} alt={item.src} />
           <Link
             to={{
             pathname: "/repo",

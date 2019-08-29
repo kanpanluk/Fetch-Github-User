@@ -144,7 +144,7 @@ class RepoComponent extends React.Component {
             console.log(error);
         });
         
-        this.wait(800);
+        if (this.state.loading) this.wait(600);
     }
 }
 

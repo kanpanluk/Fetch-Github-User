@@ -63,7 +63,9 @@ class DashboardComponent extends React.Component {
     }
 
     render() {
+        // alert(this.state.loading)
         if (this.state.loading) return <SpinnerComponent />
+        // alert(this.state.loading)
         return (
             <Container>
                 <Row>
@@ -175,7 +177,7 @@ class DashboardComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.wait(800);
+        if(this.state.loading) this.wait(800);
     }
 }
 
