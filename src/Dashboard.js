@@ -177,7 +177,7 @@ class DashboardComponent extends React.Component {
     }
 
     componentDidMount() {
-        if(this.state.loading) this.wait(800);
+        if(this.state.loading) this.wait(600);
     }
 }
 
