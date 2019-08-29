@@ -58,11 +58,11 @@ export class CarouselSlide extends Component {
           <Link
             to={{
             pathname: "/repo",
-            data: item.caption
+            data: item.login
             }} 
             style={{ textDecoration: 'none' }}
           >
-            <CarouselCaption  captionHeader={item.caption} />
+            <CarouselCaption  captionHeader={item.login} captionText={item.url} />
           </Link>
         </CarouselItem>
       );

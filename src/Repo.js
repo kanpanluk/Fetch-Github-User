@@ -74,7 +74,6 @@ class RepoComponent extends React.Component {
         <Container><Mainsection>
             <div>
                 {this.state.user.name}
-                {/* {JSON.stringify(this.state.items[0], null, 2)} */}
             </div>
             <img class="img-fluid" alt="..." src={this.state.user.avatar_url} />
             <div>
@@ -97,7 +96,7 @@ class RepoComponent extends React.Component {
     loadmore_repo(){
         
         return (<section className="feed">
-                    <h1>Repositories</h1>
+                    <h2>Repositories : {this.state.user.public_repos} repos</h2>
                         {this.state.items.slice(0, this.state.visible).map((item, index) => {
                             return (
                                 <Row>

@@ -158,8 +158,8 @@ class DashboardComponent extends React.Component {
             for (var i=0;i<this.props.user.user.items.length;i++){
                 items.push({
                     src: this.props.user.user.items[i].avatar_url,
-                    altText: this.props.user.user.items[i].html_url,
-                    caption: this.props.user.user.items[i].login
+                    url: this.props.user.user.items[i].html_url,
+                    login: this.props.user.user.items[i].login
                 })
             }
 
